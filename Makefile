@@ -3,3 +3,6 @@ dev:
 
 dev-interactive:
 	iex -S mix phx.server
+
+migrate:
+	mix ecto.migrate
