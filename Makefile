@@ -6,3 +6,6 @@ dev-interactive:
 
 migrate:
 	mix ecto.migrate
+
+test:
+	mix test
