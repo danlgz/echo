@@ -8,7 +8,7 @@ defmodule Echo.AccountsTest do
 
     import Echo.AccountsFixtures
 
-    @invalid_attrs %{username: nil, email: nil, hashed_password: nil}
+    @invalid_attrs %{username: nil, email: nil}
 
     test "list_users/0 returns all users" do
       user = user_fixture()
@@ -21,12 +21,11 @@ defmodule Echo.AccountsTest do
     end
 
     test "create_user/1 with valid data creates a user" do
-      valid_attrs = %{username: "some username", email: "some email", hashed_password: "some hashed_password"}
+      valid_attrs = %{username: "some username", email: "some email"}
 
       assert {:ok, %User{} = user} = Accounts.create_user(valid_attrs)
       assert user.username == "some username"
       assert user.email == "some email"
-      assert user.hashed_password == "some hashed_password"
     end
 
     test "create_user/1 with invalid data returns error changeset" do
@@ -35,12 +34,11 @@ defmodule Echo.AccountsTest do
 
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
-      update_attrs = %{username: "some updated username", email: "some updated email", hashed_password: "some updated hashed_password"}
+      update_attrs = %{username: "some updated username", email: "some updated email"}
 
       assert {:ok, %User{} = user} = Accounts.update_user(user, update_attrs)
       assert user.username == "some updated username"
       assert user.email == "some updated email"
-      assert user.hashed_password == "some updated hashed_password"
     end
 
     test "update_user/2 with invalid data returns error changeset" do

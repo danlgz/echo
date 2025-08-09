@@ -5,7 +5,6 @@ defmodule Echo.Accounts.User do
   schema "users" do
     field :username, :string
     field :email, :string
-    field :hashed_password, :string
 
     timestamps(type: :utc_datetime)
   end
@@ -13,8 +12,8 @@ defmodule Echo.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:username, :email, :hashed_password])
-    |> validate_required([:username, :email, :hashed_password])
+    |> cast(attrs, [:username, :email])
+    |> validate_required([:username, :email])
     |> unique_constraint(:email)
     |> unique_constraint(:username)
   end

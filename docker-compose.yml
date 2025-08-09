@@ -13,18 +13,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-  db_test:
-    image: postgres:15
-    container_name: echo-postgres-test
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: echo_test
-    ports:
-      - "5433:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./priv/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
 
 volumes:
   postgres_data:

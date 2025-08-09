@@ -6,7 +6,7 @@ config :echo, Echo.Repo,
   password: "password",
   hostname: "localhost",
   database: "echo_dev",
-  port: "5433",
+  port: "5432",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
