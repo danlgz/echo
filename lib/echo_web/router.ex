@@ -5,8 +5,17 @@ defmodule EchoWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", EchoWeb do
+  scope "/api/v1", EchoWeb do
     pipe_through :api
+
+    get "/rooms", RoomController, :index
+    get "/rooms/:id", RoomController, :show
+    post "/rooms", RoomController, :create
+
+    post "/users/register", UserController, :register
+
+    post "/users/otp/verify", UserController, :verify_otp
+    post "/users/otp/send", UserController, :send_otp
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

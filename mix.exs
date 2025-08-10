@@ -20,7 +20,7 @@ defmodule Echo.MixProject do
   def application do
     [
       mod: {Echo.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :os_mon]
     ]
   end
 
@@ -42,6 +42,7 @@ defmodule Echo.MixProject do
       {:phoenix, "~> 1.8.0"},
       {:phoenix_ecto, "~> 4.5"},
       {:ecto_sql, "~> 3.13"},
+      {:observer_cli, "~> 1.8"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_live_dashboard, "~> 0.8.3"},
       {:swoosh, "~> 1.16"},
@@ -52,7 +53,8 @@ defmodule Echo.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.2.0"},
       {:bandit, "~> 1.5"},
-      {:bcrypt_elixir, "~> 3.0"}
+      {:bcrypt_elixir, "~> 3.0"},
+      {:guardian, "~> 2.3"}
     ]
   end
 

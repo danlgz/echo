@@ -42,3 +42,8 @@ config :phoenix, :json_library, Jason
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
+
+# Configures Guardian
+config :echo, Echo.Guardian,
+  issuer: "Echo",
+  secret_key: "PB3Gn2dPi_dAzBwdDDKUZXIZfZKMSTXHZgmOW429yE_drbTWRV_rW1MXEOFUhcMY"
