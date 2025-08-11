@@ -37,6 +37,8 @@ defmodule Echo.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+  def get_user(id), do: Repo.get(User, id)
+
   def get_user_by_email(email), do: Repo.get_by(User, email: email)
 
   @doc """
@@ -115,7 +117,7 @@ defmodule Echo.Accounts do
 
   defp create_token(%User{} = user) do
     {:ok, access_token, _access_claims} =
-      Guardian.encode_and_sign(user, %{}, token_type: "access", ttl: {1, :hour})
+      Guardian.encode_and_sign(user, %{}, token_type: "access", ttl: {1, :week})
 
     {:ok, refresh_token, _refresh_claims} =
       Guardian.encode_and_sign(user, %{access_token: access_token},

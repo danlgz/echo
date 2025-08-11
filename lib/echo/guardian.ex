@@ -11,6 +11,13 @@ defmodule Echo.Guardian do
 
   @impl true
   def resource_from_claims(%{"sub" => id}) do
-    Accounts.get_user!(id)
+    case Accounts.get_user(id) do
+      nil -> {:error, :user_does_not_exist}
+      user -> {:ok, user}
+    end
+  end
+
+  def get_user(conn) do
+    Echo.Guardian.Plug.current_resource(conn)
   end
 end

@@ -12,7 +12,7 @@ defmodule Echo.Rooms.Room do
   @doc false
   def changeset(room, attrs) do
     room
-    |> cast(attrs, [:name])
-    |> validate_required([:name])
+    |> cast(attrs, [:name, :created_by])
+    |> validate_required([:name, :created_by])
   end
 end

@@ -1,8 +1,13 @@
 defmodule EchoWeb.UserJSON do
+  # @TODO: refactor this module and create a generic JSON response module
   alias Echo.Accounts.User
 
   def show(%{user: user}) do
     %{data: data(user)}
+  end
+
+  def show(%{message: message}) do
+    %{message: message}
   end
 
   def show_tokens(%{access_token: access_token, refresh_token: refresh_token}) do

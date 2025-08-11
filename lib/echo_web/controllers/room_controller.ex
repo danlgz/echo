@@ -3,16 +3,26 @@ defmodule EchoWeb.RoomController do
 
   alias Echo.Rooms
   alias Echo.Rooms.Room
+  alias Echo.Guardian
 
   action_fallback EchoWeb.FallbackController
 
   def index(conn, _params) do
-    room = Rooms.list_rooms()
+    user = Guardian.get_user(conn)
+    room = Rooms.list_rooms(user.id)
     render(conn, :index, room: room)
   end
 
-  def create(conn, %{"room" => room_params}) do
-    with {:ok, %Room{} = room} <- Rooms.create_room(room_params) do
+  def create(conn, %{"name" => room_name}) do
+    user = Guardian.get_user(conn)
+
+    payload = %{
+      name: room_name,
+      created_by: user.id
+    }
+
+    with {:ok, {room, _user_room}} <-
+           Rooms.create_room_and_user_admin(payload) do
       conn
       |> put_status(:created)
       |> render(:show, room: room)

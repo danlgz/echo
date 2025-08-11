@@ -5,14 +5,14 @@ defmodule EchoWeb.RoomJSON do
   Renders a list of room.
   """
   def index(%{room: room}) do
-    %{data: for(room <- room, do: data(room))}
+    for(room <- room, do: data(room))
   end
 
   @doc """
   Renders a single room.
   """
   def show(%{room: room}) do
-    %{data: data(room)}
+    data(room)
   end
 
   defp data(%Room{} = room) do

@@ -5,17 +5,24 @@ defmodule EchoWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug EchoWeb.GuardianPipeline
+  end
+
   scope "/api/v1", EchoWeb do
     pipe_through :api
 
-    get "/rooms", RoomController, :index
-    get "/rooms/:id", RoomController, :show
-    post "/rooms", RoomController, :create
-
     post "/users/register", UserController, :register
-
     post "/users/otp/verify", UserController, :verify_otp
     post "/users/otp/send", UserController, :send_otp
+  end
+
+  scope "/api/v1", EchoWeb do
+    pipe_through [:api, :auth]
+
+    get "/rooms", RoomController, :index
+    post "/rooms", RoomController, :create
+    get "/rooms/:id", RoomController, :show
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
