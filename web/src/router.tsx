@@ -3,6 +3,7 @@ import { AppLayout } from './components/layout/app-layout';
 import NotFound from './components/pages/404';
 import LobbyPage from './components/pages/lobby';
 import LoginPage from './components/pages/login';
+import RegisterPage from './components/pages/register';
 
 export default function Router() {
   return (
@@ -10,7 +11,7 @@ export default function Router() {
       <Routes>
         <Route path="/auth" element={<AppLayout />}>
           <Route path="login" element={<LoginPage />} />
-          {/*<Route path="register" element={<RegisterPage />} />*/}
+          <Route path="register" element={<RegisterPage />} />
         </Route>
         <Route element={<AppLayout />}>
           <Route path="/" element={<LobbyPage />} />

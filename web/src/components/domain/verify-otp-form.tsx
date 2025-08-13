@@ -52,7 +52,7 @@ export default function VerifyOTPForm({
           variant="link"
           className="p-0 mb-2"
         >
-          Back to email
+          Back
         </Button>
         <h2>Enter verification code</h2>
         <p className="text-gray-500">
