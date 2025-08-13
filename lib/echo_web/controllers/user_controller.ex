@@ -53,4 +53,12 @@ defmodule EchoWeb.UserController do
         |> render(:error, message: reason)
     end
   end
+
+  def check_email_availability(conn, %{"email" => email}) do
+    available = elem(Accounts.check_email_availability(email), 0) == :ok
+
+    conn
+    |> put_status(:ok)
+    |> render(:show, available: available)
+  end
 end

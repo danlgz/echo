@@ -15,6 +15,7 @@ defmodule EchoWeb.Router do
     post "/users/register", UserController, :register
     post "/users/otp/verify", UserController, :verify_otp
     post "/users/otp/send", UserController, :send_otp
+    post "/users/email/check-availability", UserController, :check_email_availability
   end
 
   scope "/api/v1", EchoWeb do

@@ -10,6 +10,10 @@ defmodule EchoWeb.UserJSON do
     %{message: message}
   end
 
+  def show(%{available: available}) do
+    %{available: available}
+  end
+
   def show_tokens(%{access_token: access_token, refresh_token: refresh_token}) do
     %{
       data: %{

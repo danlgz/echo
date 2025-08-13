@@ -180,4 +180,11 @@ defmodule Echo.Accounts do
       send_opt(user)
     end
   end
+
+  def check_email_availability(email) do
+    case get_user_by_email(email) do
+      nil -> {:ok, :available}
+      _ -> {:error, :email_taken}
+    end
+  end
 end
