@@ -128,6 +128,14 @@ defmodule Echo.Accounts do
     {:ok, access_token, refresh_token}
   end
 
+  def refresh_token(refresh_token) do
+    with {:ok, claims} <- Guardian.decode_and_verify(refresh_token, %{"typ" => "refresh"}),
+         {:ok, user} <- Guardian.resource_from_claims(claims),
+         {:ok, access_token, refresh_token} <- create_token(user) do
+      {:ok, access_token, refresh_token}
+    end
+  end
+
   def verify_otp(email, code) do
     with {:ok, user} <- fetch_user_by_email(email),
          {:ok, otp} <- fetch_valid_otp(user, code),

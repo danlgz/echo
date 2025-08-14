@@ -61,4 +61,18 @@ defmodule EchoWeb.UserController do
     |> put_status(:ok)
     |> render(:show, available: available)
   end
+
+  def refresh_token(conn, %{"refresh_token" => refresh_token}) do
+    case Accounts.refresh_token(refresh_token) do
+      {:ok, access_token, refresh_token} ->
+        conn
+        |> put_status(:ok)
+        |> render(:show_tokens, access_token: access_token, refresh_token: refresh_token)
+
+      {:error, reason} ->
+        conn
+        |> put_status(:bad_request)
+        |> render(:error, message: reason)
+    end
+  end
 end
