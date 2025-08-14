@@ -3,7 +3,7 @@ defmodule EchoWeb.UserJSON do
   alias Echo.Accounts.User
 
   def show(%{user: user}) do
-    %{data: data(user)}
+    data(user)
   end
 
   def show(%{message: message}) do
@@ -14,12 +14,10 @@ defmodule EchoWeb.UserJSON do
     %{available: available}
   end
 
-  def show_tokens(%{access_token: access_token, refresh_token: refresh_token}) do
+  def show(%{access_token: access_token, refresh_token: refresh_token}) do
     %{
-      data: %{
-        access_token: access_token,
-        refresh_token: refresh_token
-      }
+      access_token: access_token,
+      refresh_token: refresh_token
     }
   end
 

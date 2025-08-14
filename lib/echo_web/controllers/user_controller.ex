@@ -3,6 +3,7 @@ defmodule EchoWeb.UserController do
 
   alias Echo.Accounts
   alias Echo.Accounts.User
+  alias Echo.Guardian
 
   def register(conn, %{"email" => _, "username" => _} = user_params) do
     case Accounts.create_user(user_params) do
@@ -67,12 +68,26 @@ defmodule EchoWeb.UserController do
       {:ok, access_token, refresh_token} ->
         conn
         |> put_status(:ok)
-        |> render(:show_tokens, access_token: access_token, refresh_token: refresh_token)
+        |> render(:show, access_token: access_token, refresh_token: refresh_token)
 
       {:error, reason} ->
         conn
         |> put_status(:bad_request)
         |> render(:error, message: reason)
+    end
+  end
+
+  def get_current_user(conn, _) do
+    case Guardian.get_user(conn) do
+      %User{} = user ->
+        conn
+        |> put_status(:ok)
+        |> render(:show, user: user)
+
+      _ ->
+        conn
+        |> put_status(:bad_request)
+        |> render(:error, message: "Error getting user from token")
     end
   end
 end

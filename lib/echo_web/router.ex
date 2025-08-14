@@ -22,6 +22,8 @@ defmodule EchoWeb.Router do
   scope "/api/v1", EchoWeb do
     pipe_through [:api, :auth]
 
+    get "/users/me", UserController, :get_current_user
+
     get "/rooms", RoomController, :index
     post "/rooms", RoomController, :create
     get "/rooms/:id", RoomController, :show
