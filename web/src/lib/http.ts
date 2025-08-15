@@ -24,6 +24,7 @@ function getRefreshToken() {
 }
 
 export function saveTokens(accessToken: string, refreshToken: string) {
+  console.log('Saving tokens');
   const opts = {
     path: '/',
     secure: process.env.NODE_ENV === 'production',
@@ -32,6 +33,7 @@ export function saveTokens(accessToken: string, refreshToken: string) {
 
   Cookies.set(ACCESS_TOKEN_COOKIE_NAME, accessToken, opts);
   Cookies.set(REFRESH_TOKEN_COOKIE_NAME, refreshToken, opts);
+  console.log('Tokens saved');
 }
 
 export function clearTokens() {

@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup/src/yup.js';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { Button } from '../ui/button';
@@ -7,13 +8,18 @@ import { Label } from '../ui/label';
 
 type Props = {
   onSubmit: (data: { email: string }) => void;
+  error?: string | null;
 };
 
 const schema = yup.object({
   email: yup.string().email().required(),
 });
 
-export default function RequestOTPForm({ onSubmit }: Props) {
+export default function RequestOTPForm({
+  onSubmit,
+  error: externalError,
+}: Props) {
+  const [error, setError] = useState<string | null>(null);
   const {
     handleSubmit,
     register,
@@ -22,8 +28,11 @@ export default function RequestOTPForm({ onSubmit }: Props) {
     resolver: yupResolver(schema),
   });
 
+  useEffect(() => {
+    setError(externalError ?? null);
+  }, [externalError]);
+
   const onSubmitHandler = (data: yup.InferType<typeof schema>) => {
-    console.log(data);
     onSubmit(data);
   };
 
@@ -54,6 +63,7 @@ export default function RequestOTPForm({ onSubmit }: Props) {
           Send code
         </Button>
       </div>
+      {error ? <p className="text-red-400">{error}</p> : null}
     </form>
   );
 }

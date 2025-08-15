@@ -15,3 +15,8 @@ export type UserRoom = {
   room_id: number;
   role: 'admin' | 'member';
 };
+
+export type VerifyOTPResult = {
+  access_token: string;
+  refresh_token: string;
+};

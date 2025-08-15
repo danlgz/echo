@@ -32,7 +32,7 @@ defmodule EchoWeb.UserController do
       {:ok, access_token, refresh_token} ->
         conn
         |> put_status(:ok)
-        |> render(:show_tokens, access_token: access_token, refresh_token: refresh_token)
+        |> render(:show, access_token: access_token, refresh_token: refresh_token)
 
       {:error, reason} ->
         conn

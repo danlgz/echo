@@ -18,7 +18,7 @@ type CreateRoomDialogProps = {
 export function CreateRoomDialog({ trigger }: CreateRoomDialogProps) {
   return (
     <Dialog>
-      <DialogTrigger>{trigger}</DialogTrigger>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Create a new room</DialogTitle>

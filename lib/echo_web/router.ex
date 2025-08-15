@@ -3,7 +3,7 @@ defmodule EchoWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug CORSPlug, origin: "*"
+    # plug CORSPlug
   end
 
   pipeline :auth do

@@ -27,11 +27,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   async function checkAuthStatus() {
     setLoading(true);
+
     try {
       if (!getAuthToken()) {
-        const response = await httpClient.get<User>('/users/me');
-        setUser(response.data);
+        console.warn('No auth token found');
       }
+
+      const response = await httpClient.get<User>('/users/me');
+      setUser(response.data);
     } catch (error) {
       console.error('Error checking auth status:', error);
     } finally {
@@ -39,8 +42,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
+  // biome-ignore lint:correctness/useExhaustiveDependencies: execute only when the component mounts
   useEffect(() => {
-    checkAuthStatus();
+    void checkAuthStatus();
   }, []);
 
   function logout() {
