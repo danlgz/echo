@@ -7,11 +7,16 @@ import {
   CardTitle,
 } from '../ui/card';
 
-export default function RoomCard() {
+type Props = {
+  id: number;
+  name: string;
+};
+
+export default function RoomCard({ name }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Room Name</CardTitle>
+        <CardTitle>{name}</CardTitle>
         <CardDescription>Last joined: yesterday</CardDescription>
         <CardAction className="self-center">
           <Button variant="ghost">Join</Button>

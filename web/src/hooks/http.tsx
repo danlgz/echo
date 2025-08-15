@@ -1,6 +1,6 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import httpClient from '@/lib/http';
-import type { VerifyOTPResult } from '@/types';
+import type { Room, VerifyOTPResult } from '@/types';
 
 export function useRequestOTP() {
   const mutation = useMutation({
@@ -24,4 +24,16 @@ export function useVerifyOTP() {
   });
 
   return mutation;
+}
+
+export function useGetRooms() {
+  const query = useQuery({
+    queryKey: ['rooms'],
+    queryFn: async () => {
+      const response = await httpClient.get<Room[]>('/rooms');
+      return response.data;
+    },
+  });
+
+  return query;
 }
