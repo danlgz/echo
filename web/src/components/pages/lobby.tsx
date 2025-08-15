@@ -1,12 +1,20 @@
 import { PlusIcon } from 'lucide-react';
-import { useGetRooms } from '@/hooks/http';
-import { CreateRoomDialog } from '../domain/create-room-dialog';
+import { useCreateRoom, useGetRooms } from '@/hooks/http';
+import {
+  CreateRoomDialog,
+  type CreateRoomPayloadType,
+} from '../domain/create-room-dialog';
 import RoomCard from '../domain/room-card';
 import { Button } from '../ui/button';
 import LoadingPage from './loading';
 
 export default function LobbyPage() {
   const { data, isLoading } = useGetRooms();
+  const { mutateAsync: createRoom } = useCreateRoom();
+
+  async function handleCreateRoom(payload: CreateRoomPayloadType) {
+    await createRoom(payload);
+  }
 
   if (isLoading) {
     return <LoadingPage />;
@@ -17,6 +25,7 @@ export default function LobbyPage() {
       <div className="flex justify-between">
         <h2>Lobby</h2>
         <CreateRoomDialog
+          onSubmit={handleCreateRoom}
           trigger={<Button startIcon={<PlusIcon />}>Room</Button>}
         />
       </div>

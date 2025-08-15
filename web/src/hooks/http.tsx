@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import httpClient from '@/lib/http';
 import type { Room, VerifyOTPResult } from '@/types';
 
@@ -36,4 +36,19 @@ export function useGetRooms() {
   });
 
   return query;
+}
+
+export function useCreateRoom() {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: async (payload: { name: string }) => {
+      const response = await httpClient.post<Room>('/rooms', payload);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['rooms'] });
+    },
+  });
+
+  return mutation;
 }
