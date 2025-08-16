@@ -163,4 +163,8 @@ defmodule Echo.Rooms do
   def change_room(%Room{} = room, attrs \\ %{}) do
     Room.changeset(room, attrs)
   end
+
+  def list_room_users(room_id) do
+    Repo.all(from ur in UserRoom, where: ur.room_id == ^room_id)
+  end
 end

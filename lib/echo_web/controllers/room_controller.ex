@@ -43,10 +43,21 @@ defmodule EchoWeb.RoomController do
   end
 
   def delete(conn, %{"id" => id}) do
+    user = Guardian.get_user(conn)
     room = Rooms.get_room!(id)
+    room_users = Rooms.list_room_users(room.id)
 
-    with {:ok, %Room{}} <- Rooms.delete_room(room) do
-      send_resp(conn, :no_content, "")
+    can_delete =
+      Enum.any?(room_users, fn user_room ->
+        user_room.user_id == user.id and user_room.role == :admin
+      end)
+
+    if not can_delete do
+      send_resp(conn, :forbidden, "You are not authorized to delete this room")
+    else
+      with {:ok, %Room{}} <- Rooms.delete_room(room) do
+        send_resp(conn, :no_content, "")
+      end
     end
   end
 end

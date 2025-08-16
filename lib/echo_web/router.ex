@@ -28,6 +28,7 @@ defmodule EchoWeb.Router do
     get "/rooms", RoomController, :index
     post "/rooms", RoomController, :create
     get "/rooms/:id", RoomController, :show
+    delete "/rooms/:id", RoomController, :delete
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
