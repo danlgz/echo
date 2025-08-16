@@ -34,7 +34,7 @@ export default function RoomDeleteConfirmDialog({ trigger, onConfirm }: Props) {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button variant="outline" onClick={() => setIsOpen(false)}>
+          <Button variant="ghost" onClick={() => setIsOpen(false)}>
             Cancel
           </Button>
           <Button variant="destructive" onClick={handleConfirm}>

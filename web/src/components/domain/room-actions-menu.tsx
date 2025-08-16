@@ -1,4 +1,4 @@
-import { PencilIcon, TrashIcon } from 'lucide-react';
+import { PencilIcon, TextCursorIcon, TrashIcon } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,12 +18,13 @@ export default function RoomActionsMenu({ trigger, onDelete }: Props) {
       <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>
-          <PencilIcon />
-          Edit
+          <TextCursorIcon />
+          Rename
         </DropdownMenuItem>
         <RoomDeleteConfirmDialog
           trigger={
             <DropdownMenuItem
+              variant="destructive"
               onSelect={(e) => {
                 e.preventDefault();
                 document.body.style.pointerEvents = '';
