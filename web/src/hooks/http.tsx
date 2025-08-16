@@ -52,3 +52,17 @@ export function useCreateRoom() {
 
   return mutation;
 }
+
+export function useDeleteRoom() {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: async (id: number) => {
+      await httpClient.delete(`/rooms/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['rooms'] });
+    },
+  });
+
+  return mutation;
+}

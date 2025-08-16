@@ -19,14 +19,19 @@ const schema = yup.object({
   name: yup.string().required('Name is required'),
 });
 
-export type CreateRoomPayloadType = yup.InferType<typeof schema>;
+export type RoomFormPayloadType = yup.InferType<typeof schema>;
 
-type CreateRoomDialogProps = {
+type RoomDialogFormProps = {
   trigger: React.ReactNode;
-  onSubmit: (data: CreateRoomPayloadType) => void;
+  onSubmit: (data: RoomFormPayloadType) => void;
+  type?: 'create' | 'edit';
 };
 
-export function CreateRoomDialog({ trigger, onSubmit }: CreateRoomDialogProps) {
+export function RoomDialogForm({
+  trigger,
+  onSubmit,
+  type = 'create',
+}: RoomDialogFormProps) {
   const [isOpen, setIsOpen] = useState(false);
   const {
     register,
@@ -37,7 +42,7 @@ export function CreateRoomDialog({ trigger, onSubmit }: CreateRoomDialogProps) {
     resolver: yupResolver(schema),
   });
 
-  function onSubmitHandler(data: CreateRoomPayloadType) {
+  function onSubmitHandler(data: RoomFormPayloadType) {
     onSubmit(data);
     setIsOpen(false);
     reset();
@@ -52,7 +57,9 @@ export function CreateRoomDialog({ trigger, onSubmit }: CreateRoomDialogProps) {
           onSubmit={handleSubmit(onSubmitHandler)}
         >
           <DialogHeader>
-            <DialogTitle>Create a new room</DialogTitle>
+            <DialogTitle>
+              {type === 'create' ? 'Create a new room' : 'Edit room'}
+            </DialogTitle>
           </DialogHeader>
 
           <div className="grid gap-4">
