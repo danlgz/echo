@@ -23,7 +23,12 @@ export default function RoomActionsMenu({ trigger, onDelete }: Props) {
         </DropdownMenuItem>
         <RoomDeleteConfirmDialog
           trigger={
-            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+            <DropdownMenuItem
+              onSelect={(e) => {
+                e.preventDefault();
+                document.body.style.pointerEvents = '';
+              }}
+            >
               <TrashIcon />
               Delete
             </DropdownMenuItem>

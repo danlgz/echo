@@ -15,7 +15,11 @@ export default function LobbyPage() {
   const { mutateAsync: deleteRoom } = useDeleteRoom();
 
   async function handleCreateRoom(payload: RoomFormPayloadType) {
-    await createRoom(payload);
+    toast.promise(createRoom(payload), {
+      loading: 'Creating room...',
+      success: 'Room created successfully',
+      error: 'Failed to create room',
+    });
   }
 
   async function handleDeleteRoom(id: number) {
